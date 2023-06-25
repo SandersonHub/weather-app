@@ -1,6 +1,7 @@
 document.getElementById("search-form").addEventListener("submit", async function (event) {
   event.preventDefault();
 
+  //input for the city name, may add something to this in the future to be clear to the user.
   let city = document.getElementById("city-input").value.trim();
   if (city === "") return;
 
@@ -10,9 +11,9 @@ document.getElementById("search-form").addEventListener("submit", async function
     console.log("No results found.");
     return;
   }
-
+//calls for the lat lon for the location of the weather
   let { lat, lon } = location;
-
+//fetch weather
   let weatherData = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`)).json();
   let temperatureFahrenheit = ((weatherData.main.temp - 273.15) * 9 / 5) + 32;
   document.getElementById("current-weather-info").textContent = `Temperature: ${temperatureFahrenheit.toFixed(2)}°F`;
@@ -36,7 +37,7 @@ document.getElementById("search-form").addEventListener("submit", async function
 
       forecastInfo.appendChild(forecastElement);
     });
-
+//history list of the cities search for
   let historyList = document.getElementById("history-list");
   let listItem = document.createElement("li");
   listItem.textContent = location.name;
