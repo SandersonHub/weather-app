@@ -1,15 +1,11 @@
 document.getElementById("search-form").addEventListener("submit", async function (event) {
     event.preventDefault();
   
-    let cityInput = document.getElementById("city-input");
-    let city = cityInput.value.trim();
-  
+    let city = document.getElementById("city-input").value.trim();
     if (city === "") return;
   
     let apiKey = "e932e508bcb29838927bef8e0efbe316";
-    let geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`);
-    let [location] = await geoResponse.json();
-  
+    let [location] = await (await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`)).json();
     if (!location) {
       console.log("No results found.");
       return;
@@ -17,14 +13,11 @@ document.getElementById("search-form").addEventListener("submit", async function
   
     let { lat, lon } = location;
   
-    let weatherResponse = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
-    let weatherData = await weatherResponse.json();
+    let weatherData = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`)).json();
     let temperatureFahrenheit = ((weatherData.main.temp - 273.15) * 9 / 5) + 32;
-    let currentWeatherInfo = document.getElementById("current-weather-info");
-    currentWeatherInfo.textContent = `Temperature: ${temperatureFahrenheit.toFixed(2)}°F`;
+    document.getElementById("current-weather-info").textContent = `Temperature: ${temperatureFahrenheit.toFixed(2)}°F`;
   
-    let forecastResponse = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`);
-    let forecastData = await forecastResponse.json();
+    let forecastData = await (await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`)).json();
   
     let forecastInfo = document.getElementById("forecast-info");
     forecastInfo.innerHTML = "";
@@ -49,6 +42,6 @@ document.getElementById("search-form").addEventListener("submit", async function
     listItem.textContent = location.name;
     historyList.appendChild(listItem);
   
-    cityInput.value = "";
+    document.getElementById("city-input").value = "";
   });
   
