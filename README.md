@@ -20,7 +20,7 @@ Bradley Sanderson
 Anyone who helped guided me through this process up to this point!
 
 ## Direct Link
-](https://sandersonhub.github.io/weather-app/)https://sandersonhub.github.io/weather-app/
+https://sandersonhub.github.io/weather-app/
 
 ## Feature Photos
 ![chrome_AUB6CHCYxF](https://github.com/SandersonHub/weather-app/assets/128574459/97461b5b-db19-404a-9ba0-aef47a61fc44)
